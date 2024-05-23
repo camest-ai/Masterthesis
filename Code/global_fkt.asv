@@ -1,0 +1,32 @@
+function [ED_h1,ED_s] = global_fkt(q_initial,rho_initial)
+
+load('v0.mat')
+%parpool
+
+tStart=tic;
+run griddim.m
+run set_parameters.m
+run pricegrid.m
+run set_gridspace.m
+%run stochastic.m
+%pol_s=cell(nq,nrho);
+%pol_h1=cell(nq,nrho);
+%pol_e1=cell(nq,nrho);
+%for i =1:nq
+%for j = 1:nrho
+tic
+q = initial_q;
+rho = initial_rho;
+%q = qgrid(i);
+%rho = rhogrid(j);
+run return_matrix.m
+run value_iter.m
+run policy_fkt.m
+run simulation.m
+run Equilibrium.m
+itime = toc;
+%disp([i j itime iter])
+%end
+%end
+tEnd=toc(tStart);
+end
